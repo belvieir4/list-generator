@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    @apply bg-gradient-to-t from-slate-900 to-blue-800 min-h-screen;
+body {
+  @apply min-h-screen bg-gradient-to-t from-slate-900 to-blue-800;
+  font-family: 'Rubik', sans-serif;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
