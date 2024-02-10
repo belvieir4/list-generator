@@ -18,7 +18,7 @@ export const RadioGroup = ({ label, name, radios }: RadioGroupProps) => {
   const { field } = useController({ name, control });
   return (
     <div className="flex flex-col">
-      {label && <span className="mb-2 text-xl">{label}</span>}
+      {label && <span className="mb-2 text-sm text-gray-600">{label}</span>}
       <div className="flex items-center gap-4">
         {radios.map((radio) => (
           <label className="flex items-center gap-2" key={radio.value}>
@@ -27,6 +27,7 @@ export const RadioGroup = ({ label, name, radios }: RadioGroupProps) => {
               value={radio.value}
               checked={field.value === radio.value}
               type="radio"
+              className="h-4 w-4"
             />
             <span>{radio.label}</span>
           </label>

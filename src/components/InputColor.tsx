@@ -12,7 +12,7 @@ export const InputColor = ({ label, name }: InputProps) => {
   const { field } = useController({ name, control });
   return (
     <label className="flex flex-col items-start">
-      {label && <span className="mb-2 text-xl">{label}</span>}
+      {label && <span className="mb-2 text-sm text-gray-600">{label}</span>}
       <CompactPicker
         color={field.value}
         onChange={(ev) => {
