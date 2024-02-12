@@ -13,6 +13,7 @@ import { LangButton } from 'components/LangButton';
 import PreviewInput from 'components/PreviewInput';
 import { toJpeg } from 'html-to-image';
 import download from 'downloadjs';
+import { Analytics } from '@vercel/analytics/react';
 
 export type FormValues = {
   name: string;
@@ -244,6 +245,7 @@ function App() {
           - 2024
         </p>
       </footer>
+      <Analytics />
     </>
   );
 }
