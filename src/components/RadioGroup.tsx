@@ -16,9 +16,9 @@ export const RadioGroup = ({ label, name, radios }: RadioGroupProps) => {
   const { control } = useFormContext();
   const { field } = useController({ name, control });
   return (
-    <div className="flex flex-col">
+    <div className="mb-2 flex flex-col">
       {label && <span className="mb-2 text-sm text-gray-600">{label}</span>}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         {radios.map((radio) => (
           <label className="flex items-center gap-2" key={radio.value}>
             <input

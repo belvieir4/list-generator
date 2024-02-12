@@ -1,11 +1,14 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { useWatch } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const PreviewInput = ({ index }: { index: number }) => {
+  const { t } = useTranslation();
   const textColor = useWatch({ name: 'textColor' });
   const [editing, setEditing] = useState(false);
-  const [text, setText] = useState(`Imagem ${index + 1}`);
+  const defaultName = t('Imagem');
+  const [text, setText] = useState(`${defaultName} ${index + 1}`);
   const inputRef = useRef<HTMLInputElement>(null);
   return editing ? (
     <input
@@ -23,7 +26,7 @@ const PreviewInput = ({ index }: { index: number }) => {
     />
   ) : (
     <span
-      className={classNames('text-center text-xl font-bold', {
+      className={classNames('w-full text-center text-xl font-bold', {
         'text-white': textColor === 'white',
         'text-black': textColor === 'black',
       })}

@@ -84,23 +84,27 @@ function App() {
 
   return (
     <>
-      <div className="m-2 flex flex-1 flex-col rounded-2xl bg-white p-6 md:m-6 lg:p-8">
+      <div className="flex flex-1 flex-col rounded-2xl bg-white p-6 lg:p-8">
         <div className="mb-4 flex flex-row justify-end gap-1 lg:mb-2">
           <LangButton lang="pt-BR">PT</LangButton>
           <LangButton lang="en">EN</LangButton>
         </div>
         <p className="text-center text-3xl font-bold lg:text-5xl">👽</p>
-        <h1 className="mt-2 text-center text-3xl font-bold lg:mt-4 lg:text-5xl">
+        <h1 className="mt-2 text-center text-3xl font-bold lg:mt-6 lg:text-5xl">
           {t('Listin - o gerador de listas em imagem')}
         </h1>
         <p className="mt-2 text-center text-lg">
-          Configure sua lista, adicione as imagens dos itens e baixe a imagem
-          pra você compartilhar onde quiser.
+          {t(
+            'Configure sua lista, adicione seus itens e baixe a imagem gerada pra compartilhar onde quiser.',
+          )}
         </p>
         <div className="mb-4 mt-6 self-center rounded border border-yellow-500 bg-yellow-100 px-4 py-3 lg:mb-6">
           <p className="text-center text-sm">
-            <strong>Importante:</strong> esse site tem uma experiência melhor
-            quando aberto em um computador (desktop ou notebook.)
+            <strong>{t('Importante')}</strong>
+            {': '}
+            {t(
+              'esse site tem uma experiência melhor quando aberto em um computador (desktop ou notebook.)',
+            )}
           </p>
         </div>
 
@@ -110,41 +114,41 @@ function App() {
               <Input
                 name="name"
                 label={t('Nome da lista')}
-                placeholder="Ex: Minha Lista"
+                placeholder={t('Minha lista')}
                 required
               />
               <InputNumber
-                label="Quantos itens por linha? (max. 6)"
+                label={t('Quantos itens por linha? (max. 6)')}
                 min="1"
                 max="6"
                 name="itemsByRow"
                 required
               />
-              <InputColor label="Cor do fundo" name="color" />
+              <InputColor label={t('Cor do fundo')} name="color" />
             </div>
             <div className="flex flex-col gap-6">
               <RadioGroup
-                label="Tipo de lista"
+                label={t('Tipo de lista')}
                 name="listType"
                 radios={[
-                  { label: 'Apenas imagem', value: 'image-only' },
-                  { label: 'Imagem e titulo', value: 'image-title' },
+                  { label: t('Apenas imagem'), value: 'image-only' },
+                  { label: t('Imagem e título'), value: 'image-title' },
                 ]}
               />
               <RadioGroup
-                label="Cor do texto"
+                label={t('Cor do texto')}
                 name="textColor"
                 radios={[
-                  { label: 'Branco', value: 'white' },
-                  { label: 'Preto', value: 'black' },
+                  { label: t('Branco'), value: 'white' },
+                  { label: t('Preto'), value: 'black' },
                 ]}
               />
               <InputFile
-                label="Imagem dos itens (jpg, png)"
+                label={t('Imagens dos itens (jpg, jpeg, png)')}
                 required
-                buttonText="Escolher imagens"
+                buttonText={t('Escolher imagens')}
                 multiple
-                accept="image/png,image/jpeg,application/pdf"
+                accept="image/png,image/jpeg"
                 name="images"
               />
             </div>
@@ -153,13 +157,15 @@ function App() {
           <div className="flex flex-col items-center">
             <div className="mb-6">
               <h2 className="text-center text-2xl font-bold lg:text-3xl">
-                Prévia da Lista
+                {t('Prévia da lista')}
               </h2>
               <p className="mt-2 text-center">
                 {isNotValid
-                  ? 'Por favor, preencha todos os campos obrigatórios (*) para gerar a prévia.'
+                  ? t(
+                      'Por favor, preencha todos os campos obrigatórios (*) para gerar a prévia.',
+                    )
                   : values.listType === 'image-title'
-                    ? 'Clique no nome para editar'
+                    ? t('Clique no nome do item para editar')
                     : ''}
               </p>
             </div>
@@ -184,15 +190,12 @@ function App() {
                   <div
                     className="grid gap-x-4 gap-y-8"
                     style={{
-                      gridTemplateColumns: `repeat(${values.itemsByRow}, minmax(0, 1fr))`,
+                      gridTemplateColumns: `repeat(${values.itemsByRow}, minmax(0, 240px))`,
                       gridTemplateRows: `repeat(${Math.ceil(base64List.length / values.itemsByRow!)}, ${values.listType === 'image-title' ? 'auto' : 'auto'})`,
                     }}
                   >
                     {base64List.map((image, index) => (
-                      <div
-                        className="flex flex-col items-center gap-4"
-                        key={index}
-                      >
+                      <div className="flex flex-col gap-4" key={index}>
                         <img
                           className="h-44 w-full object-contain"
                           src={image as string}
@@ -214,13 +217,13 @@ function App() {
                       }
                     }}
                   >
-                    Baixar imagem
+                    {t('Baixar imagem')}
                   </button>
                   <button
                     className="flex flex-col items-center rounded-lg border border-blue-600 bg-blue-100 px-8 py-3 text-lg text-blue-900 transition duration-300 ease-in-out hover:bg-blue-300"
                     onClick={() => form.reset()}
                   >
-                    Reiniciar lista
+                    {t('Reiniciar lista')}
                   </button>
                 </div>
               </>
@@ -228,9 +231,9 @@ function App() {
           </div>
         </FormProvider>
       </div>
-      <footer className="mx-2 my-4 md:mx-8 md:mb-6">
+      <footer className="mt-4">
         <p className="text-center text-sm text-white">
-          Projeto por{' '}
+          {t('Projeto por')}{' '}
           <a
             href="https://www.linkedin.com/in/isabelcvieira/"
             target="_blank"

@@ -1,6 +1,7 @@
 import { HTMLProps, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useController, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 type InputFileProps = HTMLProps<HTMLInputElement> & {
   label?: string;
@@ -21,6 +22,8 @@ export const InputFile = ({
   const [isOpen, setIsOpen] = useState(false);
   const smallList = Array.from(field.value as FileList).slice(0, 5);
   const inputFile = useRef<HTMLInputElement>(null);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (field.value?.length === 0 && inputFile.current) {
@@ -94,7 +97,7 @@ export const InputFile = ({
             type="button"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? 'Ver menos' : 'Ver mais'}
+            {isOpen ? t('Ver menos') : t('Ver mais')}
           </button>
         )}
       </div>
