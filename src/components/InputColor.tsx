@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { CompactPicker } from 'react-color';
 import { useController, useFormContext } from 'react-hook-form';
 
