@@ -2,7 +2,7 @@
 
 This a personal project that originated from my collector hobby.
 
-As a person that loves collectables and action figures, I used had some images or lists from the items I had on my wishlist, but it was a little troublesome to deal with all those files, especially when I had to share with friends. So i've built this image list generator where the user can add all images from the items they want, with or without a name for that item, and generate a single image listing everything.
+As a person that loves collectables and action figures, I used to have images or written lists from the items I had on my wishlist, but it was a little troublesome to deal with all those files, especially when I had to share with friends. So i've built this image list generator where the user can add all images from the items they want, with or without a name for that item, and generate a single image listing everything.
 
 **This is an example of image generated with it:**
 
