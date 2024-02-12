@@ -22,7 +22,7 @@ export const Input = ({ label, name, required, ...props }: InputProps) => {
         {...props}
         {...field}
         className={classNames(
-          'w-full appearance-none border-b border-blue-600 bg-slate-100 px-4 py-3 outline-none',
+          'w-full appearance-none rounded border-b border-blue-600 bg-slate-100 px-4 py-3 outline-none',
           props.className,
         )}
       />

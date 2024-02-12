@@ -80,132 +80,168 @@ function App() {
     getImagesBase64();
   }, [values.images]);
 
-  console.log(form.watch());
-
   const isNotValid = !form.formState.isValid || values.images?.length === 0;
 
   return (
-    <div className="m-2 flex-1 rounded-2xl bg-white p-6 md:m-6 lg:p-8">
-      <div className="mb-4 flex flex-row justify-end gap-1 lg:mb-2">
-        <LangButton lang="pt-BR">PT</LangButton>
-        <LangButton lang="en">EN</LangButton>
-      </div>
-      <h1 className="mb-4 text-center text-3xl font-bold lg:mb-6 lg:text-5xl">
-        {t('Gerador de Listas')}
-      </h1>
-      <FormProvider {...form}>
-        <div className="mb-10 mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-16 lg:gap-20">
-          <div className="flex flex-col gap-6">
-            <Input
-              name="name"
-              label={t('Nome da lista')}
-              placeholder="Ex: Minha Lista"
-              required
-            />
-            <InputNumber
-              label="Quantos itens por linha? (max. 6)"
-              min="1"
-              max="6"
-              name="itemsByRow"
-              required
-            />
-            <InputColor label="Cor do fundo" name="color" />
-          </div>
-          <div className="flex flex-col gap-6">
-            <RadioGroup
-              label="Tipo de lista"
-              name="listType"
-              radios={[
-                { label: 'Apenas imagem', value: 'image-only' },
-                { label: 'Imagem e titulo', value: 'image-title' },
-              ]}
-            />
-            <RadioGroup
-              label="Cor do texto"
-              name="textColor"
-              radios={[
-                { label: 'Branco', value: 'white' },
-                { label: 'Preto', value: 'black' },
-              ]}
-            />
-            <InputFile
-              label="Imagem dos itens (jpg, png)"
-              required
-              buttonText="Escolher imagens"
-              multiple
-              accept="image/png,image/jpeg,application/pdf"
-              name="images"
-            />
-          </div>
+    <>
+      <div className="m-2 flex flex-1 flex-col rounded-2xl bg-white p-6 md:m-6 lg:p-8">
+        <div className="mb-4 flex flex-row justify-end gap-1 lg:mb-2">
+          <LangButton lang="pt-BR">PT</LangButton>
+          <LangButton lang="en">EN</LangButton>
+        </div>
+        <p className="text-center text-3xl font-bold lg:text-5xl">👽</p>
+        <h1 className="mt-2 text-center text-3xl font-bold lg:mt-4 lg:text-5xl">
+          {t('Listin - o gerador de listas em imagem')}
+        </h1>
+        <p className="mt-2 text-center text-lg">
+          Configure sua lista, adicione as imagens dos itens e baixe a imagem
+          pra você compartilhar onde quiser.
+        </p>
+        <div className="mb-4 mt-6 self-center rounded border border-yellow-500 bg-yellow-100 px-4 py-3 lg:mb-6">
+          <p className="text-center text-sm">
+            <strong>Importante:</strong> esse site tem uma experiência melhor
+            quando aberto em um computador (desktop ou notebook.)
+          </p>
         </div>
 
-        <div className="flex flex-col items-center">
-          <div className="mb-6">
-            <h2 className="text-center text-2xl font-bold lg:text-3xl">
-              Prévia da Lista
-            </h2>
-            <p className="mt-2 text-center">
-              {isNotValid
-                ? 'Por favor, preencha todos os campos obrigatórios (*) para gerar a prévia.'
-                : values.listType === 'image-title'
-                  ? 'Clique no nome para editar'
-                  : ''}
-            </p>
+        <FormProvider {...form}>
+          <div className="mb-10 mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-16 lg:gap-20">
+            <div className="flex flex-col gap-6">
+              <Input
+                name="name"
+                label={t('Nome da lista')}
+                placeholder="Ex: Minha Lista"
+                required
+              />
+              <InputNumber
+                label="Quantos itens por linha? (max. 6)"
+                min="1"
+                max="6"
+                name="itemsByRow"
+                required
+              />
+              <InputColor label="Cor do fundo" name="color" />
+            </div>
+            <div className="flex flex-col gap-6">
+              <RadioGroup
+                label="Tipo de lista"
+                name="listType"
+                radios={[
+                  { label: 'Apenas imagem', value: 'image-only' },
+                  { label: 'Imagem e titulo', value: 'image-title' },
+                ]}
+              />
+              <RadioGroup
+                label="Cor do texto"
+                name="textColor"
+                radios={[
+                  { label: 'Branco', value: 'white' },
+                  { label: 'Preto', value: 'black' },
+                ]}
+              />
+              <InputFile
+                label="Imagem dos itens (jpg, png)"
+                required
+                buttonText="Escolher imagens"
+                multiple
+                accept="image/png,image/jpeg,application/pdf"
+                name="images"
+              />
+            </div>
           </div>
-          {!isNotValid && (
-            <>
-              <div
-                className="flex flex-col px-4 py-8"
-                style={{ backgroundColor: values.color }}
-                ref={wishlistEl}
-              >
-                <h2
-                  className={classNames('mb-8 self-center text-4xl font-bold', {
-                    'text-white': values.textColor === 'white',
-                    'text-black': values.textColor === 'black',
-                  })}
-                >
-                  {values.name}
-                </h2>
+
+          <div className="flex flex-col items-center">
+            <div className="mb-6">
+              <h2 className="text-center text-2xl font-bold lg:text-3xl">
+                Prévia da Lista
+              </h2>
+              <p className="mt-2 text-center">
+                {isNotValid
+                  ? 'Por favor, preencha todos os campos obrigatórios (*) para gerar a prévia.'
+                  : values.listType === 'image-title'
+                    ? 'Clique no nome para editar'
+                    : ''}
+              </p>
+            </div>
+            {!isNotValid && (
+              <>
                 <div
-                  className="grid gap-x-4 gap-y-8"
-                  style={{
-                    gridTemplateColumns: `repeat(${values.itemsByRow}, minmax(0, 1fr))`,
-                    gridTemplateRows: `repeat(${Math.ceil(base64List.length / values.itemsByRow!)}, ${values.listType === 'image-title' ? 'auto' : 'auto'})`,
-                  }}
+                  className="flex flex-col px-4 py-8 shadow-lg"
+                  style={{ backgroundColor: values.color }}
+                  ref={wishlistEl}
                 >
-                  {base64List.map((image, index) => (
-                    <div
-                      className="flex flex-col items-center gap-4"
-                      key={index}
-                    >
-                      <img
-                        className="h-44 w-full object-contain"
-                        src={image as string}
-                      />
-                      {values.listType === 'image-title' && (
-                        <PreviewInput index={index} />
-                      )}
-                    </div>
-                  ))}
+                  <h2
+                    className={classNames(
+                      'mb-8 self-center text-4xl font-bold',
+                      {
+                        'text-white': values.textColor === 'white',
+                        'text-black': values.textColor === 'black',
+                      },
+                    )}
+                  >
+                    {values.name}
+                  </h2>
+                  <div
+                    className="grid gap-x-4 gap-y-8"
+                    style={{
+                      gridTemplateColumns: `repeat(${values.itemsByRow}, minmax(0, 1fr))`,
+                      gridTemplateRows: `repeat(${Math.ceil(base64List.length / values.itemsByRow!)}, ${values.listType === 'image-title' ? 'auto' : 'auto'})`,
+                    }}
+                  >
+                    {base64List.map((image, index) => (
+                      <div
+                        className="flex flex-col items-center gap-4"
+                        key={index}
+                      >
+                        <img
+                          className="h-44 w-full object-contain"
+                          src={image as string}
+                        />
+                        {values.listType === 'image-title' && (
+                          <PreviewInput index={index} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <button
-                onClick={async () => {
-                  if (wishlistEl.current) {
-                    const dataUrl = await toJpeg(wishlistEl.current);
-                    download(dataUrl, `${values.name}.jpg`);
-                  }
-                }}
-              >
-                Download
-              </button>
-              <button onClick={() => form.reset()}>Reiniciar</button>
-            </>
-          )}
-        </div>
-      </FormProvider>
-    </div>
+                <div className="mt-8 flex w-full flex-col gap-3 md:w-96">
+                  <button
+                    className="flex flex-col items-center rounded-lg bg-blue-800 px-8 py-4 text-lg text-white transition duration-300 ease-in-out hover:bg-blue-950"
+                    onClick={async () => {
+                      if (wishlistEl.current) {
+                        const dataUrl = await toJpeg(wishlistEl.current);
+                        download(dataUrl, `${values.name}.jpg`);
+                      }
+                    }}
+                  >
+                    Baixar imagem
+                  </button>
+                  <button
+                    className="flex flex-col items-center rounded-lg border border-blue-600 bg-blue-100 px-8 py-3 text-lg text-blue-900 transition duration-300 ease-in-out hover:bg-blue-300"
+                    onClick={() => form.reset()}
+                  >
+                    Reiniciar lista
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </FormProvider>
+      </div>
+      <footer className="mx-2 my-4 md:mx-8 md:mb-6">
+        <p className="text-center text-sm text-white">
+          Projeto por{' '}
+          <a
+            href="https://www.linkedin.com/in/isabelcvieira/"
+            target="_blank"
+            className=" text-blue-100 underline underline-offset-2 hover:text-blue-500"
+          >
+            Isabel Vieira
+          </a>{' '}
+          - 2024
+        </p>
+      </footer>
+    </>
   );
 }
 

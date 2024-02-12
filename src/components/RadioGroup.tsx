@@ -1,5 +1,4 @@
 import { HTMLProps } from 'react';
-import classNames from 'classnames';
 import { useController, useFormContext } from 'react-hook-form';
 
 type Radio = {
@@ -27,7 +26,7 @@ export const RadioGroup = ({ label, name, radios }: RadioGroupProps) => {
               value={radio.value}
               checked={field.value === radio.value}
               type="radio"
-              className="h-4 w-4"
+              className="h-5 w-5"
             />
             <span>{radio.label}</span>
           </label>
