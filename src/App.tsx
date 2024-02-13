@@ -14,6 +14,7 @@ import PreviewInput from 'components/PreviewInput';
 import { toJpeg } from 'html-to-image';
 import download from 'downloadjs';
 import { Analytics } from '@vercel/analytics/react';
+import Modal from 'components/Modal';
 
 export type FormValues = {
   name: string;
@@ -29,6 +30,7 @@ function App() {
   const [base64List, setBase64List] = useState<(string | ArrayBuffer | null)[]>(
     [],
   );
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const wishlistEl = useRef<HTMLDivElement>(null);
   const form = useForm<FormValues>({
     mode: 'all',
@@ -81,13 +83,30 @@ function App() {
     getImagesBase64();
   }, [values.images]);
 
+  useEffect(() => {
+    const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(
+      navigator.userAgent,
+    );
+    setIsModalVisible(isSafariBrowser);
+  }, []);
+
   const isNotValid = !form.formState.isValid || values.images?.length === 0;
 
   return (
     <>
+      <Modal
+        isVisible={isModalVisible}
+        message={t(
+          'O Listin não consegue gerar imagens pelo Safari, por favor, use outro navegador.',
+        )}
+        onClose={() => setIsModalVisible(false)}
+        title={t('Atenção')}
+        acceptLabel="Ok"
+        showRejectButton={false}
+      />
       <div className="flex flex-1 flex-col rounded-2xl bg-white p-6 lg:p-8">
         <div className="mb-4 flex flex-row justify-end gap-1 lg:mb-2">
-          <LangButton lang="pt-BR">PT</LangButton>
+          <LangButton lang="pt">PT</LangButton>
           <LangButton lang="en">EN</LangButton>
         </div>
         <p className="text-center text-3xl font-bold lg:text-5xl">👽</p>

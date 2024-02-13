@@ -1,12 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const i18next = i18n
   .use(initReactI18next) // passes i18n down to react-i18next
+  .use(LanguageDetector)
   .use(Backend)
   .init({
-    lng: 'pt-BR', // if you're using a language detector, do not define the lng option
     fallbackLng: 'pt-BR',
 
     interpolation: {
@@ -14,5 +15,17 @@ export const i18next = i18n
     },
     backend: {
       loadPath: '/locales/{{lng}}.json',
+    },
+    detection: {
+      order: [
+        'querystring',
+        'cookie',
+        'localStorage',
+        'sessionStorage',
+        'navigator',
+        'htmlTag',
+        'path',
+        'subdomain',
+      ],
     },
   });
